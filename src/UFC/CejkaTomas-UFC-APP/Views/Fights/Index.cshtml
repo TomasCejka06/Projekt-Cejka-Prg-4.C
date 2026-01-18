@@ -1,0 +1,40 @@
+﻿@model IEnumerable<CejkaTomas_UFC_APP.Models.Fights>
+
+<h1>Fights</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Event</th>
+            <th>Date</th>
+            <th>Red corner</th>
+            <th>Blue corner</th>
+            <th>Winner</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var fight in Model)
+        {
+            <tr>
+                <td>@fight.EventName</td>
+                <td>@fight.FightDate.ToShortDateString()</td>
+                <td>@fight.FighterRed.Name</td>
+                <td>@fight.FighterBlue.Name</td>
+                <td>
+                    @if (fight.Winner != null)
+                    {
+                        @fight.Winner.Name
+                    }
+                    else
+                    {
+                        <span>—</span>
+                    }
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@fight.Id">Detail</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

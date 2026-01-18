@@ -1,6 +1,6 @@
-﻿namespace CejkaTomas_UFC_APP.Entities
+﻿namespace CejkaTomas_UFC_APP.Models
 {
-    public  class Fighter
+    public class Fighter
     {
         public int Id { get; set; }
         public string Name { get; set; } = null!;

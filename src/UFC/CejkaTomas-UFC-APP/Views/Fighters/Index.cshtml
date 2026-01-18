@@ -1,0 +1,31 @@
+﻿@model IEnumerable<CejkaTomas_UFC_APP.Models.Fighter>
+
+<h1>Fighters</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Nickname</th>
+            <th>Weight class</th>
+            <th>Wins</th>
+            <th>Losses</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var fighter in Model)
+        {
+            <tr>
+                <td>@fighter.Name</td>
+                <td>@fighter.Nickname</td>
+                <td>@fighter.WeightClass</td>
+                <td>@fighter.Wins</td>
+                <td>@fighter.Losses</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@fighter.Id">Detail</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

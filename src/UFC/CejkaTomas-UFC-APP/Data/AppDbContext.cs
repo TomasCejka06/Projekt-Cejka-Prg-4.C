@@ -1,18 +1,46 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
+using CejkaTomas_UFC_APP.Models;
 
-
-namespace UvodDoAspNet.Web.Data
+namespace CejkaTomas_UFC_APP.Data
 {
-    
     public class AppDbContext : DbContext
     {
-        
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public AppDbContext(DbContextOptions<AppDbContext> options)
+            : base(options)
         {
-            optionsBuilder.UseMySQL("server=mysqlstudenti.litv.sssvt.cz;database=4c2_cejkatomas_db2;user=cejkatomas;password=123456");
         }
 
+        public DbSet<Fighter> Fighters { get; set; } = null!;
+        public DbSet<Fights> Fights { get; set; } = null!;
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            // --- Fights -> Fighter (Red corner)
+            modelBuilder.Entity<Fights>()
+                .HasOne(f => f.FighterRed)
+                .WithMany() // nechceme mapovat kolekce v Fighter
+                .HasForeignKey(f => f.FighterRedId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // --- Fights -> Fighter (Blue corner)
+            modelBuilder.Entity<Fights>()
+                .HasOne(f => f.FighterBlue)
+                .WithMany()
+                .HasForeignKey(f => f.FighterBlueId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // --- Fights -> Fighter (Winner)
+            modelBuilder.Entity<Fights>()
+                .HasOne(f => f.Winner)
+                .WithMany()
+                .HasForeignKey(f => f.WinnerId)
+                .OnDelete(DeleteBehavior.SetNull);
+
+            // pokud mas v Fighter tyhle kolekce a nechces je resit:
+            modelBuilder.Entity<Fighter>().Ignore(x => x.FightFighterReds);
+            modelBuilder.Entity<Fighter>().Ignore(x => x.FightFighterBlues);
+        }
     }
 }

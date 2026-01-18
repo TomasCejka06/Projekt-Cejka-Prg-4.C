@@ -1,4 +1,4 @@
-﻿namespace CejkaTomas_UFC_APP.Entities
+﻿namespace CejkaTomas_UFC_APP.Models
 {
     public class Fights
     {

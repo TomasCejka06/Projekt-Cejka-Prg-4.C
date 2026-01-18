@@ -1,0 +1,29 @@
+﻿@model CejkaTomas_UFC_APP.Models.Fights
+
+<h1>@Model.EventName</h1>
+
+<p><strong>Date:</strong> @Model.FightDate.ToShortDateString()</p>
+
+<p>
+    <strong>Red corner:</strong>
+    @Model.FighterRed.Name
+</p>
+
+<p>
+    <strong>Blue corner:</strong>
+    @Model.FighterBlue.Name
+</p>
+
+@if (Model.Winner != null)
+{
+    <p>
+        <strong>Winner:</strong>
+        @Model.Winner.Name
+    </p>
+}
+else
+{
+    <p><strong>Winner:</strong> Not decided</p>
+}
+
+<a asp-action="Index">Back</a>
