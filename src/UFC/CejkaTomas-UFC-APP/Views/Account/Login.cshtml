@@ -1,0 +1,30 @@
+﻿@model CejkaTomas_UFC_APP.Models.ViewModels.LoginVm
+
+<h1>Login</h1>
+
+@if (ViewBag.Info != null)
+{
+    <div class="alert alert-info">@ViewBag.Info</div>
+}
+
+<form asp-action="Login" method="post">
+    @Html.AntiForgeryToken()
+
+    <div class="mb-2">
+        <label asp-for="UsernameOrEmail">Username or Email</label>
+        <input asp-for="UsernameOrEmail" class="form-control" />
+        <span asp-validation-for="UsernameOrEmail" class="text-danger"></span>
+    </div>
+
+    <div class="mb-2">
+        <label asp-for="Password"></label>
+        <input asp-for="Password" class="form-control" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+
+    <button class="btn btn-success" type="submit">Login</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

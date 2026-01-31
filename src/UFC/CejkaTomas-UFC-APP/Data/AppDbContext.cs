@@ -5,6 +5,7 @@ namespace CejkaTomas_UFC_APP.Data
 {
     public class AppDbContext : DbContext
     {
+
         public AppDbContext(DbContextOptions<AppDbContext> options)
             : base(options)
         {
@@ -13,6 +14,9 @@ namespace CejkaTomas_UFC_APP.Data
         public DbSet<Fighter> Fighters { get; set; } = null!;
         public DbSet<Fights> Fights { get; set; } = null!;
 
+        public DbSet<User> Users { get; set; } = null!;
+
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -37,6 +41,9 @@ namespace CejkaTomas_UFC_APP.Data
                 .WithMany()
                 .HasForeignKey(f => f.WinnerId)
                 .OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder.Entity<User>().ToTable("Users");
+
 
             // pokud mas v Fighter tyhle kolekce a nechces je resit:
             modelBuilder.Entity<Fighter>().Ignore(x => x.FightFighterReds);
